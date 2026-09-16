@@ -1,96 +1,621 @@
-<!doctype html>
+```html
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Scholastic Talent Show</title>
-<style>
-:root{--ink:#182033;--muted:#5f6878;--accent:#6d35d4;--accent2:#f2b84b;--paper:#fff;--bg:#f5f6fb}
-*{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
-header{background:linear-gradient(135deg,#25105c,#6d35d4 55%,#b44cff);color:white}
-nav{max-width:1100px;margin:auto;padding:18px 24px;display:flex;justify-content:space-between;align-items:center}
-.logo{font-weight:800;font-size:1.1rem} nav a{color:#fff;text-decoration:none;margin-left:22px;font-weight:650}
-.hero{max-width:1100px;margin:auto;padding:70px 24px 85px;display:grid;grid-template-columns:1.15fr .85fr;gap:45px;align-items:center}
-h1{font-size:clamp(2.5rem,6vw,5rem);line-height:.98;margin:0 0 22px}.hero p{font-size:1.2rem;max-width:650px}
-.badge{display:inline-block;background:#ffffff25;border:1px solid #ffffff55;border-radius:999px;padding:7px 13px;margin-bottom:18px}
-.buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.btn{display:inline-block;padding:13px 18px;border-radius:10px;text-decoration:none;font-weight:800}.primary{background:var(--accent2);color:#241800}.secondary{background:white;color:#30126d}
-.hero-art{background:#ffffff18;border:1px solid #ffffff35;border-radius:28px;padding:18px;box-shadow:0 20px 50px #0003}
-.hero-art svg{display:block;width:100%;height:auto}
-main{max-width:1100px;margin:auto;padding:55px 24px}.section-title{font-size:2rem;margin:0 0 12px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:25px 0 55px}
-.card{background:var(--paper);border-radius:18px;padding:24px;box-shadow:0 8px 25px #20284012}.card h3{margin-top:0}
-.info{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:55px}
-.download{border:2px dashed #b7a5df;background:#fbf9ff}
-.faq details{background:white;margin:10px 0;border-radius:12px;padding:15px 18px;box-shadow:0 5px 18px #2028400c}.faq summary{font-weight:750;cursor:pointer}
-footer{background:#171a26;color:white;padding:40px 24px}.footer-inner{max-width:1100px;margin:auto;display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap}footer a{color:#f2c86b}
-.small{color:var(--muted);font-size:.95rem}
-@media(max-width:760px){.hero{grid-template-columns:1fr;padding-top:45px}.grid,.info{grid-template-columns:1fr}nav{align-items:flex-start}nav div:last-child{display:none}}
-</style>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Information, registration, and event details for the Scholastic Talent Show."
+    >
+
+    <title>Scholastic Talent Show</title>
+
+    <!-- External stylesheet -->
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-<header>
-<nav><div class="logo">★ SCHOLASTIC TALENT SHOW</div><div><a href="#event">Event</a><a href="#signup">Sign Up</a><a href="#faq">FAQ</a><a href="#contact">Contact</a></div></nav>
-<section class="hero">
-<div>
-<span class="badge">2026 School Community Event</span>
-<h1>Let your talent take the stage.</h1>
-<p>Join fellow students for an evening celebrating music, comedy, dance, magic, spoken word, and all kinds of creative talent.</p>
-<p><strong>Saturday, November 14, 2026 · 6:00 PM</strong><br>School Auditorium</p>
-<div class="buttons"><a class="btn primary" href="#signup">Become a Performer</a><a class="btn secondary" href="#event">Event Details</a></div>
-</div>
-<div class="hero-art">
-<svg viewBox="0 0 500 390" role="img" aria-label="Illustration of a performer on a stage">
-<defs><linearGradient id="g" x1="0" x2="1"><stop stop-color="#f2b84b"/><stop offset="1" stop-color="#ff77d8"/></linearGradient></defs>
-<rect width="500" height="390" rx="22" fill="#17112d"/>
-<circle cx="95" cy="75" r="52" fill="#6d35d4"/><circle cx="410" cy="75" r="52" fill="#b44cff"/>
-<path d="M65 330 Q250 250 435 330 L435 365 L65 365Z" fill="#301d50"/>
-<path d="M145 45 L250 235 L355 45" fill="url(#g)" opacity=".22"/>
-<circle cx="250" cy="140" r="38" fill="#f0b98c"/>
-<path d="M205 135 Q250 85 295 135 L285 112 Q250 78 215 112Z" fill="#33231f"/>
-<path d="M210 185 Q250 165 290 185 L315 295 L185 295Z" fill="#6d35d4"/>
-<path d="M220 205 L165 270 M280 205 L340 270" stroke="#f0b98c" stroke-width="17" stroke-linecap="round"/>
-<path d="M215 292 L190 345 M285 292 L310 345" stroke="#25283a" stroke-width="20" stroke-linecap="round"/>
-<circle cx="250" cy="145" r="7" fill="#182033"/><circle cx="270" cy="145" r="7" fill="#182033"/>
-<path d="M238 160 Q250 170 262 160" fill="none" stroke="#9d4c62" stroke-width="4"/>
-<circle cx="110" cy="320" r="18" fill="#f2b84b"/><circle cx="390" cy="320" r="18" fill="#f2b84b"/>
-</svg>
-</div>
-</section>
-</header>
 
-<main>
-<section id="event">
-<h2 class="section-title">Event Information</h2>
-<div class="grid">
-<div class="card"><h3>📅 When</h3><p><strong>Saturday, November 14, 2026</strong><br>Doors: 5:30 PM<br>Show: 6:00 PM</p></div>
-<div class="card"><h3>📍 Where</h3><p><strong>School Auditorium</strong><br>123 School Street<br>Your Town, MA</p></div>
-<div class="card"><h3>🎭 Who Can Perform?</h3><p>Students in grades 4–12. Solo, duet, and group performances are welcome.</p></div>
-</div>
-</section>
+    <!-- =====================================================
+         UTILITY BAR
+         ===================================================== -->
 
-<section id="signup">
-<h2 class="section-title">Ready for the Stage?</h2>
-<div class="info">
-<div class="card download"><h3>Download the Registration Form</h3><p>Print the form, complete it, and return it according to the event instructions.</p><a class="btn secondary" href="Talent_Show_Registration_Form.pdf" download>Download Form (PDF)</a></div>
-<div class="card"><h3>Submit Online</h3><p>Prefer online registration? Complete the Google Form and your information will be sent to the talent show organizers.</p><a class="btn primary" href="https://forms.google.com/" target="_blank" rel="noopener">Open Google Form ↗</a><p class="small">Replace this demo link with your actual Google Form URL.</p></div>
-</div>
-</section>
+    <div class="utility-bar">
+        <div class="site-width utility-inner">
 
-<section id="faq" class="faq">
-<h2 class="section-title">Frequently Asked Questions</h2>
-<details><summary>How long can an act be?</summary><p>Plan for a maximum of 5 minutes per act. Final timing will be confirmed after registration.</p></details>
-<details><summary>What kinds of performances are allowed?</summary><p>Music, dance, comedy, magic, spoken word, skits, and other school-appropriate acts are welcome.</p></details>
-<details><summary>Can I perform with friends?</summary><p>Yes. Duets and groups are welcome. One person should be designated as the primary contact.</p></details>
-<details><summary>Can I use recorded music?</summary><p>Yes. Details about file format and how to submit music will be provided to registered performers.</p></details>
-<details><summary>What happens after I sign up?</summary><p>The organizers will review submissions and contact performers with rehearsal, timing, and show-day information.</p></details>
-</section>
-</main>
+            <div>
+                Scholastic Talent Show
+            </div>
 
-<footer id="contact">
-<div class="footer-inner">
-<div><h2>Questions?</h2><p>Talent Show Chair<br><a href="mailto:talentshow@example.org">talentshow@example.org</a><br>(555) 555-0123</p></div>
-<div><p><strong>Scholastic Talent Show</strong><br>Presented by the School Community</p><p class="small" style="color:#bfc3cf">This proof-of-concept uses placeholder contact information.</p></div>
-</div>
-</footer>
+            <div class="utility-links">
+                <a href="#event">Event Information</a>
+                <a href="#contact">Contact</a>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- =====================================================
+         SITE HEADER
+         ===================================================== -->
+
+    <header class="site-header">
+
+        <div class="site-width header-inner">
+
+            <a class="site-brand" href="#top">
+
+                <div class="brand-mark">
+                    ★
+                </div>
+
+                <div>
+                    <div class="brand-name">
+                        SCHOLASTIC
+                    </div>
+
+                    <div class="brand-subtitle">
+                        TALENT SHOW
+                    </div>
+                </div>
+
+            </a>
+
+
+            <button
+                class="menu-button"
+                type="button"
+                aria-label="Open navigation"
+            >
+                ☰
+            </button>
+
+
+            <nav class="main-navigation">
+
+                <a href="#event">
+                    Event
+                </a>
+
+                <a href="#signup">
+                    Sign Up
+                </a>
+
+                <a href="#faq">
+                    FAQs
+                </a>
+
+                <a href="#contact">
+                    Contact
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <main id="top">
+
+
+        <!-- =================================================
+             HERO / PHOTO
+             ================================================= -->
+
+        <section class="hero">
+
+            <div class="hero-image">
+
+                <img
+                    src="images/hero.jpg"
+                    alt="Students performing on stage"
+                >
+
+            </div>
+
+
+            <div class="hero-message">
+
+                <div class="site-width">
+
+                    <div class="hero-content">
+
+                        <div class="eyebrow">
+                            STUDENT SHOWCASE
+                        </div>
+
+                        <h1>
+                            Scholastic<br>
+                            Talent Show
+                        </h1>
+
+                        <p class="hero-date">
+                            Saturday, November 14, 2026
+                            <br>
+                            6:00 PM
+                        </p>
+
+                        <p>
+                            A celebration of creativity,
+                            talent, and our school community.
+                        </p>
+
+                        <div class="hero-actions">
+
+                            <a
+                                class="button button-primary"
+                                href="#signup"
+                            >
+                                SIGN UP TO PERFORM
+                            </a>
+
+                            <a
+                                class="button button-light"
+                                href="#event"
+                            >
+                                EVENT INFORMATION
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             QUICK LINKS
+             ================================================= -->
+
+        <section class="quick-links">
+
+            <div class="site-width quick-links-grid">
+
+                <a href="#signup">
+                    <span class="quick-icon">★</span>
+                    <span>
+                        <strong>PERFORMER SIGNUP</strong>
+                        <small>Register your act</small>
+                    </span>
+                </a>
+
+
+                <a
+                    href="Talent_Show_Registration_Form.pdf"
+                    download
+                >
+                    <span class="quick-icon">↓</span>
+                    <span>
+                        <strong>DOWNLOAD FORM</strong>
+                        <small>Printable registration form</small>
+                    </span>
+                </a>
+
+
+                <a
+                    href="https://forms.google.com/"
+                    target="_blank"
+                    rel="noopener"
+                >
+                    <span class="quick-icon">↗</span>
+                    <span>
+                        <strong>ONLINE SIGNUP</strong>
+                        <small>Complete the Google Form</small>
+                    </span>
+                </a>
+
+
+                <a href="#faq">
+                    <span class="quick-icon">?</span>
+                    <span>
+                        <strong>HAVE QUESTIONS?</strong>
+                        <small>Read the FAQs</small>
+                    </span>
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             EVENT INFORMATION
+             ================================================= -->
+
+        <section
+            id="event"
+            class="content-section"
+        >
+
+            <div class="site-width">
+
+                <div class="section-heading">
+
+                    <div class="eyebrow">
+                        MARK YOUR CALENDAR
+                    </div>
+
+                    <h2>
+                        Event Information
+                    </h2>
+
+                </div>
+
+
+                <div class="information-grid">
+
+
+                    <article class="information-card">
+
+                        <div class="card-icon">
+                            📅
+                        </div>
+
+                        <h3>
+                            When
+                        </h3>
+
+                        <p>
+                            <strong>
+                                Saturday, November 14, 2026
+                            </strong>
+                            <br>
+                            Doors open: 5:30 PM
+                            <br>
+                            Show begins: 6:00 PM
+                        </p>
+
+                    </article>
+
+
+                    <article class="information-card">
+
+                        <div class="card-icon">
+                            📍
+                        </div>
+
+                        <h3>
+                            Where
+                        </h3>
+
+                        <p>
+                            <strong>
+                                School Auditorium
+                            </strong>
+                            <br>
+                            123 School Street
+                            <br>
+                            Your Town, VT
+                        </p>
+
+                    </article>
+
+
+                    <article class="information-card">
+
+                        <div class="card-icon">
+                            🎭
+                        </div>
+
+                        <h3>
+                            Who Can Perform?
+                        </h3>
+
+                        <p>
+                            Students in grades 4–12.
+                            Solo, duet, and group
+                            performances are welcome.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SIGNUP
+             ================================================= -->
+
+        <section
+            id="signup"
+            class="feature-section"
+        >
+
+            <div class="site-width">
+
+                <div class="section-heading">
+
+                    <div class="eyebrow">
+                        READY FOR THE STAGE?
+                    </div>
+
+                    <h2>
+                        Performer Registration
+                    </h2>
+
+                    <p>
+                        Choose either the printable form
+                        or online registration.
+                    </p>
+
+                </div>
+
+
+                <div class="registration-grid">
+
+
+                    <article class="registration-card">
+
+                        <div class="registration-number">
+                            01
+                        </div>
+
+                        <h3>
+                            Printable Form
+                        </h3>
+
+                        <p>
+                            Download the registration form,
+                            print it, complete it, and return
+                            it according to the event
+                            instructions.
+                        </p>
+
+                        <a
+                            class="button button-primary"
+                            href="Talent_Show_Registration_Form.pdf"
+                            download
+                        >
+                            DOWNLOAD PDF
+                        </a>
+
+                    </article>
+
+
+                    <article class="registration-card">
+
+                        <div class="registration-number">
+                            02
+                        </div>
+
+                        <h3>
+                            Online Registration
+                        </h3>
+
+                        <p>
+                            Complete the online registration
+                            form. Your information will be
+                            sent directly to the event organizers.
+                        </p>
+
+                        <a
+                            class="button button-primary"
+                            href="https://forms.google.com/"
+                            target="_blank"
+                            rel="noopener"
+                        >
+                            OPEN GOOGLE FORM
+                        </a>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FAQ
+             ================================================= -->
+
+        <section
+            id="faq"
+            class="content-section"
+        >
+
+            <div class="site-width faq-layout">
+
+                <div class="section-heading">
+
+                    <div class="eyebrow">
+                        GOOD TO KNOW
+                    </div>
+
+                    <h2>
+                        Frequently Asked Questions
+                    </h2>
+
+                </div>
+
+
+                <div class="faq-list">
+
+
+                    <details>
+
+                        <summary>
+                            How long can my act be?
+                        </summary>
+
+                        <p>
+                            Acts should be no longer than
+                            five minutes. Final timing will
+                            be confirmed after registration.
+                        </p>
+
+                    </details>
+
+
+                    <details>
+
+                        <summary>
+                            Can I perform with friends?
+                        </summary>
+
+                        <p>
+                            Absolutely. Duets and group
+                            performances are welcome.
+                        </p>
+
+                    </details>
+
+
+                    <details>
+
+                        <summary>
+                            What kinds of performances are allowed?
+                        </summary>
+
+                        <p>
+                            Music, dance, comedy, magic,
+                            spoken word, skits, and other
+                            school-appropriate performances
+                            are welcome.
+                        </p>
+
+                    </details>
+
+
+                    <details>
+
+                        <summary>
+                            Can I use recorded music?
+                        </summary>
+
+                        <p>
+                            Yes. Information about submitting
+                            music or audio files will be provided
+                            to registered performers.
+                        </p>
+
+                    </details>
+
+
+                    <details>
+
+                        <summary>
+                            What happens after I sign up?
+                        </summary>
+
+                        <p>
+                            The organizers will contact
+                            performers with rehearsal,
+                            scheduling, and show-day information.
+                        </p>
+
+                    </details>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer
+        id="contact"
+        class="site-footer"
+    >
+
+        <div class="site-width footer-grid">
+
+
+            <div>
+
+                <div class="footer-brand">
+                    SCHOLASTIC TALENT SHOW
+                </div>
+
+                <p>
+                    Celebrating the creativity,
+                    talent, and accomplishments
+                    of our students.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Contact
+                </h3>
+
+                <p>
+                    Talent Show Chair
+                    <br>
+
+                    <a href="mailto:talentshow@example.org">
+                        talentshow@example.org
+                    </a>
+
+                    <br>
+
+                    (555) 555-0123
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Event Location
+                </h3>
+
+                <p>
+                    School Auditorium
+                    <br>
+                    123 School Street
+                    <br>
+                    Your Town, VT
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <div class="site-width">
+
+                © 2026 Scholastic Talent Show
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
 </body>
 </html>
+```
