@@ -17,6 +17,9 @@
 
     --teal: #16889a;
     --teal-light: #e7f5f6;
+	
+	--gems: #8B0100;
+	--black: #000000;
 
     --gold: #e2ad3d;
 
@@ -70,7 +73,7 @@ img {
 }
 
 a {
-    color: var(--blue);
+    color: var(--gems);
 }
 
 
@@ -92,7 +95,7 @@ a {
 
     margin-bottom: 8px;
 
-    color: var(--teal);
+    color: var(--gems);
 
     font-size: 0.78rem;
 
@@ -193,7 +196,7 @@ a {
 
     place-items: center;
 
-    background: var(--teal);
+    background: var(--gems);
 
     color: var(--white);
 
@@ -204,7 +207,7 @@ a {
 
 .brand-name {
 
-    color: var(--blue-dark);
+    color: var(--black);
 
     font-size: 1.15rem;
 
@@ -215,7 +218,7 @@ a {
 
 .brand-subtitle {
 
-    color: var(--teal);
+    color: var(--gems);
 
     font-size: 0.85rem;
 
@@ -246,7 +249,7 @@ a {
 
     padding: 0 20px;
 
-    color: var(--blue-dark);
+    color: var(--black);
 
     text-decoration: none;
 
@@ -259,7 +262,7 @@ a {
 
     background: var(--teal-light);
 
-    color: var(--blue);
+    color: var(--gems);
 }
 
 
@@ -273,7 +276,7 @@ a {
 
     background: none;
 
-    color: var(--blue-dark);
+    color: var(--black);
 
     font-size: 1.5rem;
 }
@@ -316,7 +319,7 @@ a {
 
 .hero-message {
 
-    background: var(--blue);
+    background: var(--gems);
 
     color: var(--white);
 }
@@ -394,7 +397,7 @@ a {
 
 .button-primary {
 
-    background: var(--teal);
+    background: var(--gems);
 
     color: var(--white);
 }
@@ -403,7 +406,7 @@ a {
 
     background: var(--teal-light);
 
-    color: var(--blue-dark);
+    color: var(--black);
 }
 
 .button-light {
@@ -419,7 +422,7 @@ a {
 
     background: var(--white);
 
-    color: var(--blue-dark);
+    color: var(--black);
 }
 
 
@@ -456,7 +459,7 @@ a {
 
     border-right: 1px solid var(--border);
 
-    color: var(--blue-dark);
+    color: var(--black);
 
     text-decoration: none;
 }
@@ -500,7 +503,7 @@ a {
 
     place-items: center;
 
-    background: var(--teal);
+    background: var(--gems);
 
     color: var(--white);
 
@@ -528,7 +531,7 @@ a {
 
     margin: 0;
 
-    color: var(--blue-dark);
+    color: var(--black);
 
     font-size: 2.25rem;
 
@@ -563,7 +566,7 @@ a {
 
     border: 1px solid var(--border);
 
-    border-top: 4px solid var(--teal);
+    border-top: 4px solid var(--gems);
 }
 
 .card-icon {
@@ -577,7 +580,7 @@ a {
 
     margin: 0 0 8px;
 
-    color: var(--blue-dark);
+    color: var(--black);
 
     font-size: 1.3rem;
 }
@@ -632,7 +635,7 @@ a {
 
     margin-bottom: 12px;
 
-    color: var(--teal);
+    color: var(--gems);
 
     font-size: 0.85rem;
 
@@ -645,7 +648,7 @@ a {
 
     margin-top: 0;
 
-    color: var(--blue-dark);
+    color: var(--black);
 
     font-size: 1.45rem;
 }
@@ -683,7 +686,7 @@ a {
 
     cursor: pointer;
 
-    color: var(--blue-dark);
+    color: var(--black);
 
     font-weight: bold;
 }
