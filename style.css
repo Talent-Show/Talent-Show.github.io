@@ -861,3 +861,182 @@ a {
         grid-template-columns: 1fr;
     }
 }
+/* =====================================================
+   IMPORTANT DATES / CALENDAR
+   ===================================================== */
+
+.calendar-section {
+    background: #f7f9fa;
+}
+
+.calendar-timeline {
+    max-width: 900px;
+    margin: 2.5rem auto 0;
+    position: relative;
+}
+
+/* Vertical timeline */
+.calendar-timeline::before {
+    content: "";
+    position: absolute;
+    left: 54px;
+    top: 15px;
+    bottom: 15px;
+    width: 2px;
+    background: #d8d8d8;
+}
+
+.calendar-event {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 2rem;
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.calendar-date {
+    width: 88px;
+    height: 88px;
+    background: #8B0100;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 0 0 6px #f7f9fa;
+}
+
+.calendar-date span {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.calendar-date strong {
+    font-size: 2rem;
+    line-height: 1.05;
+    font-weight: 700;
+}
+
+.calendar-event-content {
+    background: #ffffff;
+    border: 1px solid #dce1e3;
+    border-radius: 4px;
+    padding: 1.35rem 1.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+}
+
+.calendar-event-content h3 {
+    margin: 0 0 0.5rem;
+    color: #263238;
+    font-size: 1.25rem;
+}
+
+.calendar-event-content p {
+    margin: 0;
+    color: #52646b;
+    line-height: 1.6;
+}
+
+.calendar-event-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-top: 1rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid #edf1f2;
+    font-size: 0.9rem;
+    color: #52646b;
+}
+
+.calendar-event-info strong {
+    color: #263238;
+}
+
+.calendar-event-label {
+    display: inline-block;
+    margin-bottom: 0.4rem;
+    color: #8B0100;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+/* Talent Review */
+.calendar-event-review .calendar-date {
+    background: #8B0100;
+}
+
+.calendar-event-review .calendar-event-content {
+    border-left: 4px solid #8B0100;
+}
+
+/* Final event */
+.calendar-event-final .calendar-date {
+    background: #8B0100;
+    box-shadow:
+        0 0 0 6px #f7f9fa,
+        0 0 0 9px #8B0100;
+}
+
+.calendar-event-final .calendar-event-content {
+    border-left: 4px solid #8B0100;
+    background: #ffffff;
+}
+
+.calendar-event-final .calendar-event-content h3 {
+    font-size: 1.4rem;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+
+    .calendar-timeline {
+        margin-top: 2rem;
+    }
+
+    .calendar-timeline::before {
+        left: 39px;
+    }
+
+    .calendar-event {
+        grid-template-columns: 78px 1fr;
+        gap: 1rem;
+    }
+
+    .calendar-date {
+        width: 68px;
+        height: 68px;
+        box-shadow: 0 0 0 5px #f7f9fa;
+    }
+
+    .calendar-date span {
+        font-size: 0.65rem;
+    }
+
+    .calendar-date strong {
+        font-size: 1.5rem;
+    }
+
+    .calendar-event-final .calendar-date {
+        box-shadow:
+            0 0 0 5px #f7f9fa,
+            0 0 0 8px #8B0100;
+    }
+
+    .calendar-event-content {
+        padding: 1rem;
+    }
+
+    .calendar-event-content h3 {
+        font-size: 1.1rem;
+    }
+
+    .calendar-event-info {
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+}
