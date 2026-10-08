@@ -998,6 +998,18 @@ a {
     border-left: 4px solid #8B0100;
 }
 
+/* Donate image */
+.donate-section {
+    text-align: center;
+}
+
+.donate-section img {
+    width: 400px;
+    max-width: 80%;
+    height: auto;
+    margin: 0 auto;
+}
+
 /* Mobile */
 @media (max-width: 700px) {
 
