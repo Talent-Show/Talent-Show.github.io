@@ -77,6 +77,36 @@
                     src="images/stage.jpg"
                     alt="Students performing on stage"
                 >
+                <!-- Video slideshow sits over the hero image. Replace the sample
+                     YouTube video IDs below with your own videos. -->
+                <div class="hero-video-slideshow" aria-label="Performance video slideshow">
+                    <button class="video-slide-arrow video-slide-prev" type="button" aria-label="Previous video" hidden>
+                        &#10094;
+                    </button>
+                    <div class="video-slide-track">
+                        <div class="video-slide is-active">
+                            <iframe
+                                data-src="videos/promo.mp4"
+                                title="promo"
+                                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin"
+                                allowfullscreen
+                            ></iframe>
+                        </div>
+                        <div class="video-slide">
+							<iframe
+                                data-src="videos/callout.mp4"
+                                title="callout"
+                                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin"
+                                allowfullscreen
+                            ></iframe>
+                        </div>
+                    </div>
+                    <button class="video-slide-arrow video-slide-next" type="button" aria-label="Next video">
+                        &#10095;
+                    </button>
+                </div>
             </div>
             <div class="hero-message">
                 <div class="site-width">
@@ -627,5 +657,45 @@
             </div>
         </div>
     </footer>
-</body>
+
+    <script>
+        (() => {
+            const slideshow = document.querySelector(".hero-video-slideshow");
+            if (!slideshow) return;
+
+            const slides = Array.from(slideshow.querySelectorAll(".video-slide"));
+            const previous = slideshow.querySelector(".video-slide-prev");
+            const next = slideshow.querySelector(".video-slide-next");
+            let activeIndex = 0;
+
+            function showSlide(index) {
+                activeIndex = (index + slides.length) % slides.length;
+                slides.forEach((slide, i) => {
+                    const active = i === activeIndex;
+                    slide.classList.toggle("is-active", active);
+                    slide.setAttribute("aria-hidden", String(!active));
+
+                    // Unload inactive embeds completely, which stops playback/audio.
+                    // Restore the embed only for the visible slide; it never autoplays.
+                    const frame = slide.querySelector("iframe");
+                    if (!frame) return;
+                    if (active) {
+                        if (!frame.hasAttribute("src")) {
+                            frame.setAttribute("src", frame.dataset.src);
+                        }
+                    } else {
+                        frame.removeAttribute("src");
+                    }
+                });
+
+                previous.hidden = slides.length < 2;
+                next.hidden = slides.length < 2;
+            }
+
+            previous.addEventListener("click", () => showSlide(activeIndex - 1));
+            next.addEventListener("click", () => showSlide(activeIndex + 1));
+            showSlide(0);
+        })();
+    </script>
+\n</body>
 </html>
