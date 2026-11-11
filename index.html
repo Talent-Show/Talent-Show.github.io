@@ -14,6 +14,99 @@
     <!-- External stylesheet -->
     <link rel="stylesheet" href="style.css">
 	<link rel="icon" type="image/x-icon" href="favicon.png">
+    <!-- Venmo payment card in the hero (kept here so style.css is untouched) -->
+    <style>
+        .hero-image { position: relative; min-height: 420px; overflow: hidden; }
+        .hero-image > img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero-pay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            z-index: 2;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,.15) 0%, rgba(0,0,0,.55) 100%);
+        }
+        .hero-pay-card {
+            width: 100%;
+            max-width: 420px;
+            box-sizing: border-box;
+            padding: 32px 28px 24px;
+            text-align: center;
+            color: #1b1f2a;
+            background: rgba(255,255,255,.94);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,.35);
+            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
+            font-family: inherit;
+        }
+        .hero-pay-eyebrow {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: #008cff;
+            margin-bottom: 6px;
+        }
+        .hero-pay-title {
+            margin: 0 0 10px;
+            font-size: 32px;
+            line-height: 1.15;
+            color: #1b1f2a;
+        }
+        .hero-pay-text {
+            margin: 0 0 22px;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #3d4455;
+        }
+        .hero-pay-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 16px 22px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            background: #008cff;
+            border-radius: 999px;
+            box-shadow: 0 6px 18px rgba(0,140,255,.45);
+            transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+        }
+        .hero-pay-button:hover,
+        .hero-pay-button:focus-visible {
+            background: #0070cc;
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(0,112,204,.5);
+        }
+        .hero-pay-button:focus-visible { outline: 3px solid #1b1f2a; outline-offset: 3px; }
+        .hero-pay-logo { width: 22px; height: 22px; flex: none; }
+        .hero-pay-note { margin: 12px 0 0; font-size: 13px; color: #5b6275; }
+        @media (max-width: 600px) {
+            .hero-image { min-height: 340px; }
+            .hero-pay-card { padding: 22px 18px 18px; border-radius: 16px; }
+            .hero-pay-title { font-size: 24px; }
+            .hero-pay-text { font-size: 15px; margin-bottom: 16px; }
+            .hero-pay-button { font-size: 16px; padding: 14px 18px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-pay-button { transition: none; }
+            .hero-pay-button:hover, .hero-pay-button:focus-visible { transform: none; }
+        }
+    </style>
 </head>
 <body>
      <!--=====================================================
@@ -79,6 +172,32 @@
                 >
                 <!-- Video slideshow sits over the hero image. Replace the sample
                      YouTube video IDs below with your own videos. -->
+                <!-- =============================================
+                     VENMO PAYMENT CARD (replaces the video slideshow)
+                     ============================================= -->
+                <div class="hero-pay">
+                    <div class="hero-pay-card">
+                        <div class="hero-pay-eyebrow">Support the Show</div>
+                        <h2 class="hero-pay-title">Pay with Venmo</h2>
+                        <p class="hero-pay-text">
+                            Pay the Georgia PTCO quickly and securely through Venmo.
+                        </p>
+                        <a
+                            class="hero-pay-button"
+                            href="https://account.venmo.com/payment-link?recipients=PTCO-GeorgiaVT&amp;txn=pay"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Pay the Georgia PTCO with Venmo (opens in a new tab)"
+                        >
+                            <svg class="hero-pay-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                                <path fill="currentColor" d="M19.6 3c.7 1.2 1 2.4 1 3.9 0 4.8-4.1 11.1-7.5 15.5H5.4L2.3 4.1l6.8-.6 1.6 13.2c1.5-2.5 3.4-6.4 3.4-9 0-1.4-.2-2.4-.6-3.2L19.6 3z"/>
+                            </svg>
+                            Pay @PTCO-GeorgiaVT
+                        </a>
+                        <p class="hero-pay-note">Opens Venmo in a new tab</p>
+                    </div>
+                </div>
+                <!-- OLD VIDEO SLIDESHOW (commented out, kept for later)
                 <div class="hero-video-slideshow" aria-label="Performance video slideshow">
                     <button class="video-slide-arrow video-slide-prev" type="button" aria-label="Previous video" hidden>
                         &#10094;
@@ -107,6 +226,7 @@
                         &#10095;
                     </button>
                 </div>
+                END OLD VIDEO SLIDESHOW -->
             </div>
             <div class="hero-message">
                 <div class="site-width">
