@@ -16,7 +16,9 @@
 	<link rel="icon" type="image/x-icon" href="favicon.png">
     <!-- Venmo payment card in the hero (kept here so style.css is untouched) -->
     <style>
-        .hero-image { position: relative; min-height: 420px; overflow: hidden; }
+        /* max-height: none lifts the 520px limit in style.css, which was cutting off
+           the bottom of the three areas. The hero now grows to fit them. */
+        .hero-image { position: relative; min-height: 420px; max-height: none; overflow: hidden; }
         .hero-image > img {
             position: absolute;
             inset: 0;
@@ -24,21 +26,36 @@
             height: 100%;
             object-fit: cover;
         }
+        /* Dark wash over the stage picture. In the page flow (not absolute)
+           so the hero grows to fit the three areas on any screen. */
         .hero-pay {
-            position: absolute;
-            inset: 0;
+            position: relative;
+            z-index: 2;
+            box-sizing: border-box;
+            min-height: 420px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 16px;
-            z-index: 2;
+            padding: 48px 32px;
             background: radial-gradient(ellipse at center, rgba(0,0,0,.15) 0%, rgba(0,0,0,.55) 100%);
         }
-        .hero-pay-card {
+        /* Three equal areas across the stage: payment, cover art, act lineup */
+        .hero-areas {
             width: 100%;
-            max-width: 420px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 32px;
+            align-items: stretch;
+        }
+        .hero-area {
             box-sizing: border-box;
-            padding: 32px 28px 24px;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 28px;
             text-align: center;
             color: #1b1f2a;
             background: rgba(255,255,255,.94);
@@ -48,20 +65,23 @@
             backdrop-filter: blur(6px);
             font-family: inherit;
         }
-        .hero-pay-eyebrow {
+        .hero-area-eyebrow {
             font-size: 13px;
             font-weight: 700;
             letter-spacing: .14em;
             text-transform: uppercase;
-            color: #008cff;
+            color: #0070cc;
             margin-bottom: 6px;
         }
-        .hero-pay-title {
-            margin: 0 0 10px;
-            font-size: 32px;
+        .hero-area-title {
+            margin: 0 0 16px;
+            font-size: 28px;
             line-height: 1.15;
             color: #1b1f2a;
         }
+        .hero-area-note { margin: 12px 0 0; font-size: 13px; color: #5b6275; }
+
+        /* Area 1: Venmo payment */
         .hero-pay-text {
             margin: 0 0 22px;
             font-size: 16px;
@@ -94,17 +114,144 @@
         }
         .hero-pay-button:focus-visible { outline: 3px solid #1b1f2a; outline-offset: 3px; }
         .hero-pay-logo { width: 22px; height: 22px; flex: none; }
-        .hero-pay-note { margin: 12px 0 0; font-size: 13px; color: #5b6275; }
+
+        /* Area 2: cover art slideshow. The frame has the cover art's shape
+           (596 x 840) and each picture is fitted whole: never cropped or zoomed.
+           The arrows and dots sit under the picture so nothing covers the art. */
+        .hero-slideshow { width: 100%; max-width: 280px; }
+        .hero-slide-stage {
+            position: relative;
+            aspect-ratio: 596 / 840;
+            background: #e6e9f0;
+            box-shadow: 0 6px 18px rgba(0,0,0,.2);
+        }
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .6s ease, visibility .6s ease;
+        }
+        .hero-slide.is-active { opacity: 1; visibility: visible; }
+        .hero-slide-link {
+            display: block;
+            width: 100%;
+            height: 100%;
+            cursor: zoom-in;
+        }
+        .hero-slide-link:focus-visible { outline: 3px solid #1b1f2a; outline-offset: 3px; }
+        .hero-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .hero-slide-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 14px;
+        }
+        .hero-slide-arrow {
+            flex: none;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            font-size: 18px;
+            line-height: 1;
+            color: #fff;
+            background: #1b1f2a;
+            border: 0;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .hero-slide-arrow:hover,
+        .hero-slide-arrow:focus-visible { background: #0070cc; }
+        .hero-slide-arrow:focus-visible { outline: 3px solid #1b1f2a; outline-offset: 2px; }
+        .hero-slide-dots { display: flex; align-items: center; gap: 8px; }
+        .hero-slide-dot {
+            width: 12px;
+            height: 12px;
+            padding: 0;
+            background: #fff;
+            border: 2px solid #5b6275;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .hero-slide-dot.is-active { background: #0070cc; border-color: #0070cc; transform: scale(1.25); }
+        .hero-slide-dot:focus-visible { outline: 3px solid #1b1f2a; outline-offset: 2px; }
+
+        /* Area 3: act lineup thumbnail (1395 x 1074), scaled down and shown
+           whole; click it to open the full-size picture. */
+        .hero-lineup-link {
+            display: block;
+            width: 100%;
+            color: #0070cc;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: zoom-in;
+        }
+        .hero-lineup-link img {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1395 / 1074;
+            object-fit: contain;
+            margin-bottom: 12px;
+            background: #e6e9f0;
+            box-shadow: 0 6px 18px rgba(0,0,0,.2);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .hero-lineup-link:hover img,
+        .hero-lineup-link:focus-visible img {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(0,0,0,.3);
+        }
+        .hero-lineup-link:focus-visible { outline: 3px solid #1b1f2a; outline-offset: 4px; }
+
+        /* Too narrow for three across: stack payment, cover art, act lineup */
+        @media (max-width: 900px) {
+            .hero-pay { padding: 32px 20px; }
+            .hero-areas { grid-template-columns: minmax(0, 1fr); gap: 24px; max-width: 440px; }
+        }
         @media (max-width: 600px) {
             .hero-image { min-height: 340px; }
-            .hero-pay-card { padding: 22px 18px 18px; border-radius: 16px; }
-            .hero-pay-title { font-size: 24px; }
+            .hero-pay { min-height: 340px; padding: 24px 16px; }
+            .hero-areas { gap: 20px; }
+            .hero-area { padding: 24px 20px; border-radius: 16px; }
+            .hero-area-title { font-size: 24px; }
             .hero-pay-text { font-size: 15px; margin-bottom: 16px; }
             .hero-pay-button { font-size: 16px; padding: 14px 18px; }
         }
         @media (prefers-reduced-motion: reduce) {
-            .hero-pay-button { transition: none; }
-            .hero-pay-button:hover, .hero-pay-button:focus-visible { transform: none; }
+            .hero-pay-button, .hero-slide, .hero-lineup-link img { transition: none; }
+            .hero-pay-button:hover, .hero-pay-button:focus-visible,
+            .hero-lineup-link:hover img, .hero-lineup-link:focus-visible img { transform: none; }
+        }
+
+        /* Responsive Canva presentation embed */
+        .canva-embed-wrap {
+            position: relative;
+            width: 100%;
+            max-width: 1100px;
+            height: 0;
+            padding-bottom: 56.25%;
+            margin: 24px auto 0;
+            overflow: hidden;
+            border-radius: 12px;
+            background: #f3f3f3;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
+        }
+        .canva-embed-wrap iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+        @media (max-width: 600px) {
+            .canva-embed-wrap { padding-bottom: 120%; }
         }
     </style>
 </head>
@@ -145,15 +292,20 @@
                 ☰
             </button>
             <nav class="main-navigation">
+<!-- EVENT NAV LINK (commented out with the Event Information section)
                 <a href="#event">
                     Event
+                </a>
+-->
+                <a href="#program">
+                    Program
                 </a>
                <!--  <a href="#signup">
                     Sign Up
                 </a> -->
-                <a href="#faq">
+               <!--  <a href="#faq">
                     FAQs
-                </a>
+                </a> -->
                 <a href="#contact">
                     Contact
                 </a>
@@ -176,9 +328,13 @@
                      VENMO PAYMENT CARD (replaces the video slideshow)
                      ============================================= -->
                 <div class="hero-pay">
-                    <div class="hero-pay-card">
-                        <div class="hero-pay-eyebrow">Support the Show</div>
-                        <h2 class="hero-pay-title">Pay with Venmo</h2>
+                    <div class="hero-areas">
+                    <!-- =============================================
+                         AREA 1 (LEFT): VENMO PAYMENT
+                         ============================================= -->
+                    <div class="hero-area">
+                        <div class="hero-area-eyebrow">Support the Show</div>
+                        <h2 class="hero-area-title">Pay with Venmo</h2>
                         <p class="hero-pay-text">
                             Pay the Georgia PTCO quickly and securely through Venmo.
                         </p>
@@ -194,7 +350,74 @@
                             </svg>
                             Pay @PTCO-GeorgiaVT
                         </a>
-                        <p class="hero-pay-note">Opens Venmo in a new tab</p>
+                        <p class="hero-area-note">Opens Venmo in a new tab</p>
+                    </div>
+                    <!-- =============================================
+                         AREA 2 (MIDDLE): COVER ART SLIDESHOW
+                         To change a cover: edit its image link (src) and its
+                         description (alt) below.
+                         Clicking a picture opens that same file full size.
+                         Add or remove a slide by copying or deleting one
+                         <div class="hero-slide"> block; the dots adjust.
+                         ============================================= -->
+                    <div class="hero-area">
+                        <div class="hero-area-eyebrow">Student Artwork</div>
+                        <h2 class="hero-area-title">Program Cover Art</h2>
+                        <div
+                            class="hero-slideshow"
+                            role="group"
+                            aria-roledescription="slideshow"
+                            aria-label="Program cover art"
+                        >
+                            <div class="hero-slide-stage">
+                                <div class="hero-slide is-active">
+                                    <img src="images/e.png" alt="Cover art by Evie Call">
+                                </div>
+                                <div class="hero-slide">
+                                    <img src="images/l.png" alt="Cover art by Layla Gutkopf" loading="lazy">
+                                </div>
+                                <div class="hero-slide">
+                                    <img src="images/ef.png" alt="Cover art by Emily Fike" loading="lazy">
+                                </div>
+                                <div class="hero-slide">
+                                    <img src="images/s.png" alt="Cover art by Soph Gore" loading="lazy">
+                                </div>
+                                <div class="hero-slide">
+                                    <img src="images/z.png" alt="Cover art by Zeta Walker" loading="lazy">
+                                </div>
+                            </div>
+                            <div class="hero-slide-controls">
+                                <button class="hero-slide-arrow hero-slide-prev" type="button" aria-label="Previous cover">
+                                    &#10094;
+                                </button>
+                                <div class="hero-slide-dots"></div>
+                                <button class="hero-slide-arrow hero-slide-next" type="button" aria-label="Next cover">
+                                    &#10095;
+                                </button>
+                            </div>
+                        </div>
+                        <p class="hero-area-note">Click a cover to see it full size</p>
+                    </div>
+                    <!-- =============================================
+                         AREA 3 (RIGHT): ACT LINEUP
+                         UPDATE: put the lineup picture's file name in BOTH
+                         the href and the src below (the same file: the page
+                         shows it scaled down, the click opens it full size).
+                         ============================================= -->
+                    <div class="hero-area">
+                        <div class="hero-area-eyebrow">On Stage Tonight</div>
+                        <h2 class="hero-area-title">Act Lineup</h2>
+                        <a
+                            class="hero-lineup-link"
+                            href="images/lineup.png"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label="Open the act lineup full size (opens in a new tab)"
+                        >
+                            <img src="images/lineup.png" alt="Act lineup for the GEMS Talent Show">
+                            Click to enlarge
+                        </a>
+                    </div>
                     </div>
                 </div>
                 <!-- OLD VIDEO SLIDESHOW (commented out, kept for later)
@@ -244,7 +467,7 @@
                             Doors Open 5:30 PM
                         </p>
                         <p>
-                            Come share your talent and creativity with the school community.
+                            Come celebrate our talented GEMS students with the school community.
                         </p>
                         <div class="hero-actions">
                            <!--  <a
@@ -253,12 +476,14 @@
                             >
                                 SIGN UP TO PERFORM
                             </a> -->
+<!-- EVENT INFORMATION BUTTON (commented out with the Event Information section)
                             <a
                                 class="button button-light"
                                 href="#event"
                             >
                                 EVENT INFORMATION
                             </a>
+-->
                         </div>
                     </div>
                 </div>
@@ -288,18 +513,19 @@
                     </span>
                 </a> -->
                 
-                <a href="#faq">
+               <!--  <a href="#faq">
                     <span class="quick-icon">?</span>
                     <span>
                         <strong>HAVE QUESTIONS?</strong>
                         <small>Read the FAQs</small>
                     </span>
-                </a>
+                </a> -->
             </div>
         </section>
         <!-- =================================================
              EVENT INFORMATION
              ================================================= -->
+<!-- EVENT INFORMATION (commented out, kept for later)
         <section
             id="event"
             class="content-section"
@@ -364,9 +590,34 @@
                 </div>
             </div>
         </section>
+END EVENT INFORMATION -->
+
+        <!-- =================================================
+             CANVA PRESENTATION / PROGRAM
+             ================================================= -->
+        <section id="program" class="content-section">
+            <div class="site-width">
+                <div class="section-heading">
+                    <div class="eyebrow">THE SHOW</div>
+                    <h2>Talent Show Program</h2>
+                    <p>View the complete program below.</p>
+                </div>
+                <div class="canva-embed-wrap">
+                    <iframe
+                        src="https://www.canva.com/design/DAHawTIwfls/EXHV2agHONNZE7lA1L-UEQ/view?embed"
+                        title="GEMS Talent Show presentation"
+                        loading="lazy"
+                        allowfullscreen
+                        allow="fullscreen"
+                    ></iframe>
+                </div>
+            </div>
+        </section>
+
 		<!-- =================================================
      IMPORTANT DATES / CALENDAR
      ================================================= -->
+<!-- IMPORTANT DATES (commented out, kept for later)
 <section id="calendar" class="content-section calendar-section">
     <div class="site-width">
 
@@ -386,7 +637,7 @@
         <div class="calendar-timeline">
  
  
-		<!-- Talent Workshop -->
+		[Talent Workshop]
             <article class="calendar-event calendar-event-oct">
                 <div class="calendar-date">
                     <span>OCT</span>
@@ -405,7 +656,7 @@
                 </div>
             </article>
 			
-			<!-- Signup Deadline -->
+			[Signup Deadline]
             <article class="calendar-event calendar-event-oct calendar-event-deadline">
                 <div class="calendar-date">
                     <span>OCT</span>
@@ -422,7 +673,7 @@
             </article>
 			
 			
-            <!-- Talent Interviews 1-->
+            [Talent Interviews 1]
             <article class="calendar-event calendar-event-oct">
                 <div class="calendar-date">
                     <span>OCT</span>
@@ -442,7 +693,7 @@
                 </div>
             </article>
 
-            <!-- Talent Interviews 2-->
+            [Talent Interviews 2]
             <article class="calendar-event calendar-event-oct">
                 <div class="calendar-date">
                     <span>OCT</span>
@@ -461,7 +712,7 @@
                 </div>
             </article>
 
-            <!-- Talent Review  -->
+            [Talent Review]
             <article class="calendar-event calendar-event-nov">
                 <div class="calendar-date">
                     <span>NOV</span>
@@ -490,7 +741,7 @@
                 </div>
             </article>
 
-            <!-- November 11 -->
+            [November 11]
             <article class="calendar-event calendar-event-nov">
                 <div class="calendar-date">
                     <span>NOV</span>
@@ -508,7 +759,7 @@
                 </div>
             </article>
 
-            <!-- November 13 -->
+            [November 13]
             <article class="calendar-event calendar-event-final calendar-event-nov">
                 <div class="calendar-date">
                     <span>NOV</span>
@@ -538,6 +789,7 @@
         </div>
     </div>
 </section>
+END IMPORTANT DATES -->
         <!-- =================================================
              SIGNUP
              ================================================= -->
@@ -602,7 +854,7 @@
         <!-- =================================================
              FAQ
              ================================================= -->
-        <section
+        <!--<section
             id="faq"
             class="content-section"
         >
@@ -674,7 +926,7 @@
                             What happens after I sign up?
                         </summary>
                         <p>
-							Refer to the <a href="#calendar">calendar</a> for important dates 
+							Refer to the calendar for important dates 
 							</p>
 							<p>
 							If you've sign up before Oct 13, you can still come to the talent workshop!</p>
@@ -721,7 +973,7 @@
 					</details>					
                 </div>
             </div>
-        </section>
+        </section> -->
 		<section class="content-section donate-section">
 		<img src="images/Donate.png" alt="Donate">
 		</section>
@@ -818,5 +1070,91 @@
             showSlide(0);
         })();
     </script>
-\n</body>
+    <!-- Image slideshow: arrows, dots, and a new photo every 5 seconds -->
+    <script>
+        (() => {
+            const slideshow = document.querySelector(".hero-slideshow");
+            if (!slideshow) return;
+
+            const slides = Array.from(slideshow.querySelectorAll(".hero-slide"));
+            const previous = slideshow.querySelector(".hero-slide-prev");
+            const next = slideshow.querySelector(".hero-slide-next");
+            const dotsWrap = slideshow.querySelector(".hero-slide-dots");
+            const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            const SECONDS_PER_PHOTO = 5;
+            let activeIndex = 0;
+            let timer = null;
+
+            // Each picture links to its own full-size file (opens in a new tab).
+            // The link is taken from the picture's src, so there is one place to update.
+            slides.forEach((slide, i) => {
+                const img = slide.querySelector("img");
+                if (!img) return;
+                const link = document.createElement("a");
+                link.className = "hero-slide-link";
+                link.href = img.getAttribute("src");
+                link.target = "_blank";
+                link.rel = "noopener noreferrer";
+                link.setAttribute("aria-label", "Open cover " + (i + 1) + " full size (opens in a new tab)");
+                img.replaceWith(link);
+                link.appendChild(img);
+            });
+
+            const dots = slides.map((slide, i) => {
+                const dot = document.createElement("button");
+                dot.type = "button";
+                dot.className = "hero-slide-dot";
+                dot.setAttribute("aria-label", "Show cover " + (i + 1) + " of " + slides.length);
+                dot.addEventListener("click", () => { showSlide(i); restart(); });
+                dotsWrap.appendChild(dot);
+                return dot;
+            });
+
+            function showSlide(index) {
+                activeIndex = (index + slides.length) % slides.length;
+                slides.forEach((slide, i) => {
+                    const active = i === activeIndex;
+                    slide.classList.toggle("is-active", active);
+                    slide.setAttribute("aria-hidden", String(!active));
+                    dots[i].classList.toggle("is-active", active);
+                    if (active) {
+                        dots[i].setAttribute("aria-current", "true");
+                        // Make sure a lazy photo loads the moment it is shown.
+                        const img = slide.querySelector("img");
+                        if (img) img.loading = "eager";
+                    } else {
+                        dots[i].removeAttribute("aria-current");
+                    }
+                });
+            }
+
+            function stop() {
+                if (timer) { clearInterval(timer); timer = null; }
+            }
+            function start() {
+                stop();
+                if (reduceMotion || slides.length < 2) return;
+                timer = setInterval(() => showSlide(activeIndex + 1), SECONDS_PER_PHOTO * 1000);
+            }
+            function restart() { start(); }
+
+            const single = slides.length < 2;
+            previous.hidden = single;
+            next.hidden = single;
+            dotsWrap.hidden = single;
+
+            previous.addEventListener("click", () => { showSlide(activeIndex - 1); restart(); });
+            next.addEventListener("click", () => { showSlide(activeIndex + 1); restart(); });
+
+            // Pause while someone is pointing at or tabbing through the slideshow.
+            slideshow.addEventListener("mouseenter", stop);
+            slideshow.addEventListener("mouseleave", start);
+            slideshow.addEventListener("focusin", stop);
+            slideshow.addEventListener("focusout", start);
+
+            showSlide(0);
+            start();
+        })();
+    </script>
+</body>
 </html>
